@@ -5,9 +5,10 @@ Create one and only one webpack configuration to use across multiple project.
 Here is a list of things and workflows we should include and cover within this repo.
 
 ### Basic
-- JS/JSX and TS/TSX support
+- JS/JSX and TS/TSX (primary)
 - CSS Modules and Styled Components (`Emotion` Package)
 - React Routes configured in one place
+- React Helmet
 - Redux
 - Node/Express
 
@@ -16,6 +17,9 @@ Here is a list of things and workflows we should include and cover within this r
 - JS and CSS chunks
 - Dynamic imports with `react-universal-component` or `loadable-components`
 - Compression with gZip and `Brotli`
+- Always keep server/client rendering in sync and no mismatch html elements
+- Modern Browsers support with only selected polyfills
+- RunTimeChunk
 
 ### Hot Reloading
 - Hot Reloading on client and server sides
@@ -27,6 +31,7 @@ Here is a list of things and workflows we should include and cover within this r
 - Standartize our workflow with proper and same bundlenig process across all projects
 - Define consistency in folder structure, tech stack, linting
 - Easier process in the futue for `yarn outdated` => `yarn upgrade`
+- Keep eye on warnings related to React features and lifecycles deprecation
 
 --- 
 
