@@ -11,11 +11,13 @@
     "dev": "nodemon --watch config --watch src/server src/server/index.js"
   },
   "dependencies": {
+    "@babel/runtime": "7.0.0",
     "babel-loader": "8.0.0",
     "css-loader": "1.0.0",
     "express": "4.16.3",
     "extract-loader": "2.0.1",
     "file-loader": "2.0.0",
+    "fs": "0.0.1-security",
     "html-loader": "0.5.5",
     "html-webpack-plugin": "3.2.0",
     "react": "16.4.2",
@@ -29,6 +31,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.0.0",
+    "@babel/plugin-transform-runtime": "7.0.0",
     "@babel/preset-env": "7.0.0",
     "@babel/preset-react": "7.0.0",
     "@babel/register": "7.0.0"
