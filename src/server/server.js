@@ -22,6 +22,9 @@ const webpackHotMiddleware = require('webpack-hot-middleware')(compiler)
 server.use(webpackHotMiddleware)
 server.use(webpackDevMiddleware)
 
+// server.get('*', (req, res) => {
+//   const html = renderToString()
+// })
 
 // Letting Express server to serve files from 'dist' folder
 const staticMiddleware = express.static('dist')

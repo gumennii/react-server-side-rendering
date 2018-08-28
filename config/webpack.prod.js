@@ -5,20 +5,15 @@ const HTMLWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
   entry: {
     vendors: ['react', 'react-dom'],
-    main: [
-      '@babel/plugin-transform-runtime',
-      'webpack-hot-middleware/client?reload=true',
-      './src/index.js'
-    ]
+    main: ['./src/index.js']
   },
-  mode: 'development',
+  mode: 'production',
   output: {
     filename: '[name]-bundle.js',
     path: path.resolve(__dirname, '../dist')
   },
-  devServer: {
-    contentBase: 'dist',
-    hot: true
+  node: {
+    fs: 'empty'
   },
   optimization: {
     splitChunks: {
@@ -33,9 +28,6 @@ module.exports = {
         }
       }
     }
-  },
-  node: {
-    fs: 'empty'
   },
   module: {
     rules: [
@@ -59,12 +51,11 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new HTMLWebpackPlugin({
       template: "./src/index.html"
     }),
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'development'
+      NODE_ENV: 'production'
     })
   ]
 }

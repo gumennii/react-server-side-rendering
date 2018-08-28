@@ -7,8 +7,9 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --config=config/webpack.dev.js",
-    "build": "webpack --config=config/webpack.dev.js",
-    "dev": "nodemon --watch config --watch src/server src/server/index.js"
+    "build": "NODE_ENV=production webpack --config=config/webpack.prod.js",
+    "dev": "nodemon --watch config --watch src/server src/server/index.js",
+    "prod": "NODE_ENV=production node src/server/index.js"
   },
   "dependencies": {
     "@babel/runtime": "7.0.0",
