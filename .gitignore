@@ -1,0 +1,13 @@
+# Folders
+/node_modules
+/dist
+/build
+/public
+
+# Files
+.env
+.vscode
+
+# Logs
+*.log
+

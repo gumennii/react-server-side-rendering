@@ -1,0 +1,8 @@
+{
+  "name": "react-server-side-rendering",
+  "version": "1.0.0",
+  "description": "Server side rendering with React, Webpack",
+  "main": "index.js",
+  "author": "Mihail Gumennii",
+  "license": "MIT"
+}
