@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import { BrowserRouter } from "react-router-dom"
 import { hot } from 'react-hot-loader'
-import { renderRoutes } from 'react-router-config';
+
+import Routes from "../../routes"
 
 class App extends Component {
   constructor(props){
@@ -18,8 +20,14 @@ class App extends Component {
   
   render() {
     return (
-      <div className='app'>
-        {renderRoutes(route.routes)}
+      <div>
+        <div>
+          <button onClick={this.increment.bind(this)}>Increment</button>
+          Counter: {this.state.count}
+        </div>
+        <BrowserRouter>
+          <Routes />
+        </BrowserRouter>
       </div>
     )
   }
