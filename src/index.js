@@ -1,12 +1,13 @@
-// require('./index.html')
-require('./styles.css')
-require('./root.js')
+// This is a Global CSS importing
+import './global.css'
 
-console.log('Environemnt is ', process.env.NODE_ENV)
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-var a = async args => {
-  const { a, b } = args
-  await console.log('Hello from the future!', a, b)
-}
+import App from './components/App'
 
-a({ a: 1, b: 2 })
+ReactDOM.hydrate(
+  <App />, document.getElementById('root')
+)
+
+console.log('Environemnt is', process.env.NODE_ENV)
