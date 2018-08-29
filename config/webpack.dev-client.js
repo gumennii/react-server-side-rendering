@@ -6,6 +6,7 @@ module.exports = {
   mode: 'development',
   node: { fs: 'empty' }, // Required for @babel7+
   entry: {
+    vendor: ['react', 'react-dom'],
     main: [
       '@babel/plugin-transform-runtime',
       'webpack-hot-middleware/client?reload=true',
@@ -14,6 +15,7 @@ module.exports = {
   },
   output: {
     filename: '[name]-bundle.js',
+    chunkFilename: '[name]-bundle.js',
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/'
   },
@@ -23,7 +25,7 @@ module.exports = {
   },
   optimization: {
     splitChunks: {
-      chunks: 'all',
+      chunks: 'initial',
       automaticNameDelimiter: '-',
       cacheGroups: {
         vendors: {

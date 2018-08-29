@@ -1,5 +1,13 @@
 import React, { Component } from 'react'
 
+// Example of dynamic imports
+const getLodash = () => {
+  import(/* webpackChunkName: "lodash" */ 'lodash').then(_ => {
+    console.log('lodash was imported')
+    console.log('lodash is working', _.defaults({ 'a': 1 }, { 'a': 3, 'b': 2 }))
+  })
+}
+
 class Sample extends Component {
   constructor(props){
     super(props)
@@ -21,6 +29,9 @@ class Sample extends Component {
         <div>
           <button onClick={this.increment.bind(this)}>Increment</button>
           {this.state.count}
+        </div>
+        <div>
+          <button onClick={getLodash}>Get Lodash Dynamicaly</button>
         </div>
       </div>
     )
