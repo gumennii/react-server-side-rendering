@@ -5,7 +5,8 @@ const Layout = (props) => {
   return (
     <div>
       <nav>
-        <Link to='/article'>Article</Link>
+        <Link to='/'>Home</Link>
+        <Link to='/sample'>Sample</Link>
       </nav>
       <main>
         {props.children}
