@@ -15,9 +15,6 @@ module.exports = {
     path: path.resolve(__dirname, '../build'),
     libraryTarget: 'commonjs2'
   },
-  node: {
-    fs: 'empty'
-  },
   module: {
     rules: [
       {
@@ -27,7 +24,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
+        use: "css-loader"
       },
       {
         test: /\.html$/,

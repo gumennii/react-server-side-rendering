@@ -1,13 +1,13 @@
 const path = require('path')
 const webpack = require('webpack')
-const HTMLWebpackPlugin = require('html-webpack-plugin')
-const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 module.exports = {
   name: 'client',
   mode: 'production',
   entry: {
-    vendors: ['react', 'react-dom'],
+    vendor: ['react', 'react-dom'],
     main: ['./src/index.js']
   },
   output: {
@@ -15,19 +15,15 @@ module.exports = {
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/'
   },
-  node: {
-    fs: 'empty'
-  },
   optimization: {
     splitChunks: {
-      automaticNameDelimiter: '-',
       chunks: 'all',
+      automaticNameDelimiter: '-',
       cacheGroups: {
-        vendor: {
+        vendors: {
           name: 'vendor',
           test: /[\\/]node_modules[\\/]/,
-          chunks: 'initial',
-          minChunks: 2
+          priority: -10
         }
       }
     }
@@ -41,20 +37,13 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [MiniCSSExtractPlugin.loader, 'css-loader']
-      },
-      {
-        test: /\.html$/,
-        use: [
-          {
-            loader: 'html-loader'
-          }
-        ]
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
       }
     ]
   },
   plugins: [
-    new MiniCSSExtractPlugin(),
+    new MiniCssExtractPlugin(),
+    new OptimizeCssAssetsPlugin(),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'production'
     })

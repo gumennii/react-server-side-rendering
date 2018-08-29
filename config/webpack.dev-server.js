@@ -13,22 +13,6 @@ module.exports = {
     path: path.resolve(__dirname, '../build'),
     libraryTarget: 'commonjs2'
   },
-  // node: {
-  //   fs: 'empty'
-  // },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-      automaticNameDelimiter: '-',
-      cacheGroups: {
-        vendors: {
-          name: 'vendor',
-          test: /[\\/]node_modules[\\/]/,
-          priority: -10
-        }
-      }
-    }
-  },
   module: {
     rules: [
       {
@@ -38,7 +22,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
+        use: "css-loader"
       },
       {
         test: /\.html$/,

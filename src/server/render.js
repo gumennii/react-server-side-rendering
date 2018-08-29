@@ -7,7 +7,7 @@ export default () => (req, res) => {
   res.send(`
     <html>
       <head>
-        <link href="/main.css" type="text/css" />
+        <link href="/main.css" type="text/css" rel="stylesheet" />
       </head>
       <body>
         <div id="root">${renderToString(<App />)}</div>

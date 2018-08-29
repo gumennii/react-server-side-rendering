@@ -1,7 +1,5 @@
 const path = require('path')
 const webpack = require('webpack')
-const HTMLWebpackPlugin = require('html-webpack-plugin')
-const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   name: 'client',
@@ -66,11 +64,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new MiniCSSExtractPlugin({ hot: true }),
     new webpack.HotModuleReplacementPlugin(),
-    // new HTMLWebpackPlugin({
-    //   template: "./src/index.html"
-    // }),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development'
     })
