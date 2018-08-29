@@ -1,29 +1,16 @@
 import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
+import { renderRoutes} from 'react-router-config'
+
+import Routes from '../../routes'
+import Layout from '../Layout'
 
 class App extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      count: 0
-    }
-  }
-
-  increment() {
-    this.setState({
-      count: this.state.count + 1
-    })
-  }
-  
   render() {
     return (
-      <div>
-        Application
-        <div>
-          <button onClick={this.increment.bind(this)}>Increment</button>
-          Counter: {this.state.count}
-        </div>
-      </div>
+      <Layout>
+        {renderRoutes(Routes)}
+      </Layout>
     )
   }
 }
