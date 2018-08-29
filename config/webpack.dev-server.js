@@ -1,12 +1,12 @@
 const path = require('path')
 const webpack = require('webpack')
-const nodeExternals = require('webpack-node-externals') // Required to skip /node_modules/ folder
+const externals = require("./node-externals")
 
 module.exports = {
   name: 'server',
   mode: 'production',
   target: 'node',
-  externals: [nodeExternals()],
+  externals: externals,
   entry: './src/server/render.js',
   output: {
     filename: 'dev-server-bundle.js',
@@ -35,6 +35,9 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 1
+    }),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development'
     })
