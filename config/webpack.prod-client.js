@@ -1,30 +1,33 @@
 const path = require('path')
 const webpack = require('webpack')
-const nodeExternals = require('webpack-node-externals') // Required to skip /node_modules/ folder
+const HTMLWebpackPlugin = require('html-webpack-plugin')
+const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
-  name: 'server',
+  name: 'client',
   mode: 'production',
-  target: 'node',
-  externals: [nodeExternals()],
-  entry: './src/server/render.js',
-  output: {
-    filename: 'dev-server-bundle.js',
-    path: path.resolve(__dirname, '../build'),
-    libraryTarget: 'commonjs2'
+  entry: {
+    vendors: ['react', 'react-dom'],
+    main: ['./src/index.js']
   },
-  // node: {
-  //   fs: 'empty'
-  // },
+  output: {
+    filename: '[name]-bundle.js',
+    path: path.resolve(__dirname, '../dist'),
+    publicPath: '/'
+  },
+  node: {
+    fs: 'empty'
+  },
   optimization: {
     splitChunks: {
-      chunks: 'all',
       automaticNameDelimiter: '-',
+      chunks: 'all',
       cacheGroups: {
-        vendors: {
+        vendor: {
           name: 'vendor',
           test: /[\\/]node_modules[\\/]/,
-          priority: -10
+          chunks: 'initial',
+          minChunks: 2
         }
       }
     }
@@ -38,7 +41,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
+        use: [MiniCSSExtractPlugin.loader, 'css-loader']
       },
       {
         test: /\.html$/,
@@ -51,8 +54,9 @@ module.exports = {
     ]
   },
   plugins: [
+    new MiniCSSExtractPlugin(),
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'development'
+      NODE_ENV: 'production'
     })
   ]
 }

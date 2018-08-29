@@ -1,20 +1,23 @@
 const path = require('path')
 const webpack = require('webpack')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
+const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
+  name: 'client',
+  mode: 'development',
+  node: { fs: 'empty' }, // Required for @babel7+
   entry: {
-    vendors: ['react', 'react-dom'],
     main: [
       '@babel/plugin-transform-runtime',
       'webpack-hot-middleware/client?reload=true',
       './src/index.js'
     ]
   },
-  mode: 'development',
   output: {
     filename: '[name]-bundle.js',
-    path: path.resolve(__dirname, '../dist')
+    path: path.resolve(__dirname, '../dist'),
+    publicPath: '/'
   },
   devServer: {
     contentBase: 'dist',
@@ -22,20 +25,16 @@ module.exports = {
   },
   optimization: {
     splitChunks: {
-      automaticNameDelimiter: "-",
       chunks: 'all',
+      automaticNameDelimiter: '-',
       cacheGroups: {
-        vendor: {
+        vendors: {
           name: 'vendor',
           test: /[\\/]node_modules[\\/]/,
-          chunks: 'initial',
-          minChunks: 2
+          priority: -10
         }
       }
     }
-  },
-  node: {
-    fs: 'empty'
   },
   module: {
     rules: [
@@ -46,7 +45,15 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
+        use: [
+          { loader: 'style-loader' },
+          { 
+            loader: 'css-loader',
+            options: {
+              modules: true
+            }
+          }
+        ]
       },
       {
         test: /\.html$/,
@@ -59,10 +66,11 @@ module.exports = {
     ]
   },
   plugins: [
+    new MiniCSSExtractPlugin({ hot: true }),
     new webpack.HotModuleReplacementPlugin(),
-    new HTMLWebpackPlugin({
-      template: "./src/index.html"
-    }),
+    // new HTMLWebpackPlugin({
+    //   template: "./src/index.html"
+    // }),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development'
     })

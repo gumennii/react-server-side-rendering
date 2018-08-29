@@ -1,33 +1,22 @@
 const path = require('path')
 const webpack = require('webpack')
-const HTMLWebpackPlugin = require('html-webpack-plugin')
+const nodeExternals = require('webpack-node-externals') // Required to skip /node_modules/ folder
 
 module.exports = {
-  entry: {
-    vendors: ['react', 'react-dom'],
-    main: ['./src/index.js']
-  },
+  name: 'server',
   mode: 'production',
+  target: 'node',
+  externals: [nodeExternals()],
+  entry: {
+    server: ['./src/server/render.js']
+  },
   output: {
-    filename: '[name]-bundle.js',
-    path: path.resolve(__dirname, '../dist')
+    filename: 'prod-server-bundle.js',
+    path: path.resolve(__dirname, '../build'),
+    libraryTarget: 'commonjs2'
   },
   node: {
     fs: 'empty'
-  },
-  optimization: {
-    splitChunks: {
-      automaticNameDelimiter: "-",
-      chunks: 'all',
-      cacheGroups: {
-        vendor: {
-          name: 'vendor',
-          test: /[\\/]node_modules[\\/]/,
-          chunks: 'initial',
-          minChunks: 2
-        }
-      }
-    }
   },
   module: {
     rules: [
@@ -51,9 +40,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new HTMLWebpackPlugin({
-      template: "./src/index.html"
-    }),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'production'
     })

@@ -1,4 +1,4 @@
-require('./index.html')
+// require('./index.html')
 require('./styles.css')
 require('./root.js')
 
