@@ -9,6 +9,7 @@ import configProdServer from '../../config/webpack.prod-server.js'
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const webpackHotServerMiddleware = require('webpack-hot-server-middleware')
+const expressStaticGzip = require('express-static-gzip')
 
 const server = express()
 
@@ -41,7 +42,11 @@ if (DEV) {
 
     // Letting Express server to serve files from 'dist' folder
     const staticMiddleware = express.static('dist')
-    server.use(staticMiddleware)
+    server.use(
+      expressStaticGzip('dist', {
+        enableBrotli: true
+      })
+    )
 
     server.use(render({ clientStats }))
   })
