@@ -2,6 +2,8 @@ const path = require('path')
 const webpack = require('webpack')
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const CompressionPlugin = require('compression-webpack-plugin')
+const BrotliPlugin = require('brotli-webpack-plugin')
 
 module.exports = {
   name: 'client',
@@ -57,6 +59,10 @@ module.exports = {
   plugins: [
     new ExtractCssChunks(),
     new OptimizeCssAssetsPlugin(),
+    new CompressionPlugin({
+      algorithm: 'gzip'
+    }),
+    new BrotliPlugin(),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'production'
     })

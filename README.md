@@ -6,7 +6,7 @@ Here is a list of things and workflows we should include and cover within this r
 
 ### Basic
 - JS/JSX and TS/TSX (primary)
-- CSS Modules and Styled Components [`Emotion` Package](https://emotion.sh/docs/introduction)
+- ✅ CSS Modules and Styled Components [`Emotion` Package](https://emotion.sh/docs/introduction)
 - ✅ React Routes configured in one place
 - ✅ ⁉️ React Helmet _(should it be stored globally? or in routes config, or in page components?! Currently in page components)_
 - Redux
