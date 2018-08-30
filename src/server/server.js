@@ -33,13 +33,20 @@ if (isDev) {
 
 } else {
   webpack([configProdClient, configProdServer]).run((err, stats) => {
+    console.log(
+      stats.toString({
+        color: true
+      })
+    )
+
+    const clientStats = stats.toJson().children[0]
     const render = require('../../build/prod-server-bundle.js').default
 
     // Letting Express server to serve files from 'dist' folder
     const staticMiddleware = express.static('dist')
     server.use(staticMiddleware)
 
-    server.use(render())
+    server.use(render({ clientStats }))
   })
   
 }
