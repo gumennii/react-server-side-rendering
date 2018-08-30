@@ -8,6 +8,8 @@ const getLodash = () => {
   })
 }
 
+import styles from './styles.css'
+
 class Sample extends Component {
   constructor(props){
     super(props)
@@ -24,7 +26,7 @@ class Sample extends Component {
 
   render() {
     return (
-      <div>
+      <div className={styles.sample}>
         Sample Page
         <div>
           <button onClick={this.increment.bind(this)}>Increment</button>

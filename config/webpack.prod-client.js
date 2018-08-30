@@ -1,6 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 module.exports = {
@@ -37,12 +37,12 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader']
+        use: [ExtractCssChunks.loader, 'css-loader']
       }
     ]
   },
   plugins: [
-    new MiniCssExtractPlugin(),
+    new ExtractCssChunks(),
     new OptimizeCssAssetsPlugin(),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'production'
