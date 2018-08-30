@@ -21,14 +21,15 @@ export default ({ clientStats }) => (req, res) => {
   }) 
 
   res.send(`
+<!doctype html>
 <html>
   <head>
     ${styles}
   </head>
   <body>
     <div id="app-root">${app}</div>
-    ${js}
     ${cssHash}
+    ${js}
   </body>
 </html>
   `)

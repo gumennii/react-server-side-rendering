@@ -1,21 +1,22 @@
 const path = require('path')
 const webpack = require('webpack')
-const nodeExternals = require('webpack-node-externals') // Required to skip /node_modules/ folder
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin')
+const externals = require('./node-externals') // Required to skip /node_modules/ folder
 
 module.exports = {
   name: 'server',
   mode: 'production',
   target: 'node',
-  externals: [nodeExternals()],
-  entry: {
-    server: ['./src/server/render.js']
-  },
+  externals: externals,
+  entry: './src/server/render.js',
   output: {
     filename: 'prod-server-bundle.js',
     path: path.resolve(__dirname, '../build'),
-    libraryTarget: 'commonjs2'
+    libraryTarget: 'commonjs2',
+    publicPath: '/'
   },
   module: {
+    exprContextCritical: false, // Should be removed with next versions of webpack
     rules: [
       {
         test: /\.js$/,
@@ -24,19 +25,21 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: "css-loader"
-      },
-      {
-        test: /\.html$/,
         use: [
+          ExtractCssChunks.loader,
           {
-            loader: 'html-loader'
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[name]__[local]--[hash:base64:5]'
+            }
           }
         ]
       }
     ]
   },
   plugins: [
+    new ExtractCssChunks(),
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 1
     }),

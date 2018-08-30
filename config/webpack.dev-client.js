@@ -26,14 +26,16 @@ module.exports = {
     hot: true
   },
   optimization: {
+    runtimeChunk: {
+      name: 'bootstrap'
+    },
     splitChunks: {
       chunks: 'initial',
       automaticNameDelimiter: '-',
       cacheGroups: {
         vendors: {
           name: 'vendor',
-          test: /[\\/]node_modules[\\/]/,
-          priority: -10
+          test: /[\\/]node_modules[\\/]/
         }
       }
     }
@@ -54,17 +56,8 @@ module.exports = {
             loader: 'css-loader',
             options: {
               modules: true,
-              localIdentName: '[name]__[local]--[hash:base64:5]',
-              emitFile: false
+              localIdentName: '[name]__[local]--[hash:base64:5]'
             }
-          },
-        ]
-      },
-      {
-        test: /\.html$/,
-        use: [
-          {
-            loader: 'html-loader'
           }
         ]
       }
