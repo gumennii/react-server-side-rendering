@@ -6,6 +6,7 @@ module.exports = {
   name: 'client',
   mode: 'development',
   node: { fs: 'empty' }, // Required for @babel7+
+  devtool: 'inline-source-map',
   entry: {
     vendor: ['react', 'react-dom'],
     main: [
@@ -38,22 +39,25 @@ module.exports = {
     }
   },
   module: {
+    exprContextCritical: false, // Should be removed with next versions of webpack
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: [{ loader: 'babel-loader' }]
+        use: 'babel-loader'
       },
       {
         test: /\.css$/,
         use: [
-          { loader: ExtractCssChunks.loader },
-          { 
+          ExtractCssChunks.loader,
+          {
             loader: 'css-loader',
             options: {
-              modules: true
+              modules: true,
+              localIdentName: '[name]__[local]--[hash:base64:5]',
+              emitFile: false
             }
-          }
+          },
         ]
       },
       {
