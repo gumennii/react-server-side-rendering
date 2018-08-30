@@ -9,8 +9,8 @@ Here is a list of things and workflows we should include and cover within this r
 - ✅ CSS Modules and Styled Components [`Emotion` Package](https://emotion.sh/docs/introduction)
 - ✅ React Routes configured in one place
 - ✅ ⁉️ React Helmet _(should it be stored globally? or in routes config, or in page components?! Currently in page components)_
-- Redux
 - ✅ Node/Express
+- Redux
 
 ### Optimizaion
 - ✅ Development and Production versions of configs
@@ -32,6 +32,7 @@ Here is a list of things and workflows we should include and cover within this r
 - Define consistency in folder structure, tech stack, linting
 - Easier process in the futue for `yarn outdated` => `yarn upgrade`
 - Keep eye on warnings related to React features and lifecycles deprecation
+- Have standard way for redux to do `initialFetchData` similiar to what `next.js` is doing with async fetching and avoid fetching data multiple time on server and client. `initialFetchData` can be defined in component and be exported separately or be part of react routes.
 
 --- 
 
@@ -46,3 +47,8 @@ Here is a list of things and workflows we should include and cover within this r
 ## Troubleshooting
 Terminal outputs `node:23368) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.`
   - Will be updated soon [issue](https://github.com/yarnpkg/yarn/issues/5477)
+
+---
+
+## What we can do more?
+- `react-universal-component` allows us to create `notFound` and `loading` components and set additional functionality for `doBefore` and `doAfter` component was rendered.
