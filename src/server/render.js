@@ -1,7 +1,7 @@
 import React from 'react'
 import { StaticRouter } from 'react-router'
 import { renderToString } from 'react-dom/server'
-import { renderRoutes } from 'react-router-config'
+import { Helmet } from 'react-helmet'
 import { flushChunkNames } from 'react-universal-component/server'
 import flushChunks from 'webpack-flush-chunks'
 
@@ -18,12 +18,16 @@ export default ({ clientStats }) => (req, res) => {
 
   const { js, styles, cssHash } = flushChunks(clientStats, {
     chunkNames: flushChunkNames()
-  }) 
+  })
+
+  const helmet = Helmet.renderStatic()
 
   res.send(`
 <!doctype html>
 <html>
   <head>
+    ${helmet.title.toString()}
+    ${helmet.meta.toString()}
     ${styles}
   </head>
   <body>

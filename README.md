@@ -8,7 +8,7 @@ Here is a list of things and workflows we should include and cover within this r
 - JS/JSX and TS/TSX (primary)
 - CSS Modules and Styled Components (`Emotion` Package)
 - React Routes configured in one place
-- React Helmet
+- React Helmet __(should it be stored globally, or in routes config, or in page components?! Currently in page components)__
 - Redux
 - Node/Express
 

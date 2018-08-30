@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Helmet } from 'react-helmet'
 
 // Example of dynamic imports
 const getLodash = () => {
@@ -26,14 +27,21 @@ class Sample extends Component {
 
   render() {
     return (
-      <div className={styles.sample}>
-        Sample Page
-        <div>
-          <button onClick={this.increment.bind(this)}>Increment</button>
-          {this.state.count}
-        </div>
-        <div>
-          <button onClick={getLodash}>Get Lodash Dynamicaly</button>
+      <div>
+        <Helmet>
+          <meta charSet='utf-8' />
+          <title>Sample Page</title>
+          <meta name='description' content='Another Title for Sample Page' />
+        </Helmet>
+        <div className={styles.sample}>
+          Sample Page
+          <div>
+            <button onClick={this.increment.bind(this)}>Increment</button>
+            {this.state.count}
+          </div>
+          <div>
+            <button onClick={getLodash}>Get Lodash Dynamicaly</button>
+          </div>
         </div>
       </div>
     )
