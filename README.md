@@ -6,24 +6,24 @@ Here is a list of things and workflows we should include and cover within this r
 
 ### Basic
 - JS/JSX and TS/TSX (primary)
-- CSS Modules and Styled Components (`Emotion` Package)
-- React Routes configured in one place
-- React Helmet __(should it be stored globally, or in routes config, or in page components?! Currently in page components)__
+- ✅ CSS Modules and Styled Components [`Emotion` Package](https://emotion.sh/docs/introduction)
+- ✅ React Routes configured in one place
+- ✅ ⁉️ React Helmet _(should it be stored globally? or in routes config, or in page components?! Currently in page components)_
 - Redux
-- Node/Express
+- ✅ Node/Express
 
 ### Optimizaion
-- Development and Production versions of configs
-- JS and CSS chunks
-- Dynamic imports with `react-universal-component` or `loadable-components`
-- Compression with gZip and `Brotli`
-- Always keep server/client rendering in sync and no mismatch html elements
-- Modern Browsers support with only selected polyfills
-- RunTimeChunk
+- ✅ Development and Production versions of configs
+- ✅ JS and CSS chunks
+- ✅ Dynamic imports with `react-universal-component` or `loadable-components`
+- ✅ Compression with gZip and `Brotli`
+- ✅ Always keep server/client rendering in sync and no mismatch html elements
+- ✅ ⁉️ Modern Browsers support with only selected polyfills
+- ✅ RunTimeChunk
 
 ### Hot Reloading
-- Hot Reloading on client and server sides
-- Hot Reloading with keeping state
+- ✅ Hot Reloading on client and server sides
+- ✅ Hot Reloading with keeping state
 
 ---
 
