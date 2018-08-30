@@ -1,10 +1,12 @@
 const path = require('path')
 const webpack = require('webpack')
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin')
 
 module.exports = {
   name: 'client',
   mode: 'development',
   node: { fs: 'empty' }, // Required for @babel7+
+  devtool: 'inline-source-map',
   entry: {
     vendor: ['react', 'react-dom'],
     main: [
@@ -24,51 +26,48 @@ module.exports = {
     hot: true
   },
   optimization: {
+    runtimeChunk: {
+      name: 'bootstrap'
+    },
     splitChunks: {
       chunks: 'initial',
       automaticNameDelimiter: '-',
       cacheGroups: {
         vendors: {
           name: 'vendor',
-          test: /[\\/]node_modules[\\/]/,
-          priority: -10
+          test: /[\\/]node_modules[\\/]/
         }
       }
     }
   },
   module: {
+    exprContextCritical: false, // Should be removed with next versions of webpack
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: [{ loader: 'babel-loader' }]
+        use: 'babel-loader'
       },
       {
         test: /\.css$/,
         use: [
-          { loader: 'style-loader' },
-          { 
+          ExtractCssChunks.loader,
+          {
             loader: 'css-loader',
             options: {
-              modules: true
+              modules: true,
+              localIdentName: '[name]__[local]--[hash:base64:5]'
             }
-          }
-        ]
-      },
-      {
-        test: /\.html$/,
-        use: [
-          {
-            loader: 'html-loader'
           }
         ]
       }
     ]
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    new ExtractCssChunks({ hot: true }),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development'
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ]
 }

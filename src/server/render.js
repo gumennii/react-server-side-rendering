@@ -2,10 +2,12 @@ import React from 'react'
 import { StaticRouter } from 'react-router'
 import { renderToString } from 'react-dom/server'
 import { renderRoutes } from 'react-router-config'
+import { flushChunkNames } from 'react-universal-component/server'
+import flushChunks from 'webpack-flush-chunks'
 
 import App from '../components/App'
 
-export default () => (req, res) => {
+export default ({ clientStats }) => (req, res) => {
   const context = {}
 
   const app = renderToString(
@@ -14,15 +16,20 @@ export default () => (req, res) => {
     </StaticRouter>
   )
 
+  const { js, styles, cssHash } = flushChunks(clientStats, {
+    chunkNames: flushChunkNames()
+  }) 
+
   res.send(`
+<!doctype html>
 <html>
   <head>
-    <link href="main.css" rel="stylesheet" type="text/css" />
+    ${styles}
   </head>
   <body>
     <div id="app-root">${app}</div>
-    <script src="vendor-bundle.js"></script>
-    <script src="main-bundle.js"></script>
+    ${cssHash}
+    ${js}
   </body>
 </html>
   `)

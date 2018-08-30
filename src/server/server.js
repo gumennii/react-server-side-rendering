@@ -12,18 +12,15 @@ const webpackHotServerMiddleware = require('webpack-hot-server-middleware')
 
 const server = express()
 
-const isProd = process.env.NODE_ENV === 'production'
-const isDev = !isProd
+const DEV = process.env.NODE_ENV === 'development'
 const publicPath = configDevClient.output.publicPath
+const outputPath = configDevClient.output.path
 
-if (isDev) {
+if (DEV) {
   const compiler = webpack([configDevClient, configDevServer])
-
   const clientCompiler = compiler.compilers[0]
-  const serverCompiler = compiler.compilers[1]
-
   const options = { publicPath, stats: { colors: true } }
-
+  
   // Add Dev middleware to express so it uses devServer from webpack
   // Webpack hot Reloading
   server.use(webpackDevMiddleware(compiler, options))
@@ -33,13 +30,20 @@ if (isDev) {
 
 } else {
   webpack([configProdClient, configProdServer]).run((err, stats) => {
+    console.log(
+      stats.toString({
+        colors: true
+      })
+    )
+
+    const clientStats = stats.toJson().children[0]
     const render = require('../../build/prod-server-bundle.js').default
 
     // Letting Express server to serve files from 'dist' folder
     const staticMiddleware = express.static('dist')
     server.use(staticMiddleware)
 
-    server.use(render())
+    server.use(render({ clientStats }))
   })
   
 }
