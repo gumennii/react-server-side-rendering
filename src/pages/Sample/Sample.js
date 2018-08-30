@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 // Example of dynamic imports
 const getLodash = () => {
-  import(/* webpackChunkName: "lodash" */ 'lodash').then(_ => {
+  import('lodash').then(_ => {
     console.log('lodash was imported')
     console.log('lodash is working', _.defaults({ 'a': 1 }, { 'a': 3, 'b': 2 }))
   })
