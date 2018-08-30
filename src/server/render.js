@@ -4,16 +4,20 @@ import { renderToString } from 'react-dom/server'
 import { Helmet } from 'react-helmet'
 import { flushChunkNames } from 'react-universal-component/server'
 import flushChunks from 'webpack-flush-chunks'
+import { Provider } from 'react-redux'
 
 import App from '../components/App'
+import store from '../state/store'
 
 export default ({ clientStats }) => (req, res) => {
   const context = {}
 
   const app = renderToString(
-    <StaticRouter location={req.path} context={context}>
-      <App />
-    </StaticRouter>
+    <Provider store={store}>
+      <StaticRouter location={req.path} context={context}>
+        <App />
+      </StaticRouter>
+    </Provider>
   )
 
   const { js, styles, cssHash } = flushChunks(clientStats, {
