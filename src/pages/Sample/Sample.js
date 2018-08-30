@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Helmet } from 'react-helmet'
+import styled, { css } from 'react-emotion'
+import styles from './styles.css'
 
 // Example of dynamic imports
 const getLodash = () => {
@@ -9,7 +11,17 @@ const getLodash = () => {
   })
 }
 
-import styles from './styles.css'
+const color = 'blue'
+
+// Example of usage emotion css
+const emotionClass = css`
+  color: ${color};
+`
+
+// Example of using react-emotion with props
+const Paragraph = styled('p')`
+  color: ${props => props.color === 'success' ? 'green' : color}
+`
 
 class Sample extends Component {
   constructor(props){
@@ -35,13 +47,14 @@ class Sample extends Component {
         </Helmet>
         <div className={styles.sample}>
           Sample Page
-          <div>
+          <div className={emotionClass}>
             <button onClick={this.increment.bind(this)}>Increment</button>
             {this.state.count}
           </div>
           <div>
             <button onClick={getLodash}>Get Lodash Dynamicaly</button>
           </div>
+          <Paragraph color="success">Sample Text</Paragraph>
         </div>
       </div>
     )

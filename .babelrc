@@ -15,6 +15,12 @@
     "@babel/transform-runtime",
     "@babel/plugin-syntax-dynamic-import",
     "universal-import",
-    "react-hot-loader/babel"
+    "react-hot-loader/babel",
+    [
+      "emotion", { 
+        "sourceMap": true, 
+        "autoLabel": true 
+      }
+    ]
   ]
 }
