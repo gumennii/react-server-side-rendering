@@ -40,3 +40,9 @@ Here is a list of things and workflows we should include and cover within this r
 - Avoid repeatable fetching of the same data on server and client sides
 - Have same coding standards and syntaxis on server and client
 - Include only required code JS/CSS
+
+---
+
+## Troubleshooting
+Terminal outputs `node:23368) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.`
+  - Will be updated soon [issue](https://github.com/yarnpkg/yarn/issues/5477)
