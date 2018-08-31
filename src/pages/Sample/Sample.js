@@ -61,7 +61,9 @@ class Sample extends Component {
             <button onClick={getLodash}>Get Lodash Dynamicaly</button>
           </div>
           <Paragraph color="success">Sample Text</Paragraph>
-          <div>Message from Redux Store: {this.props.data.data} {this.props.data.test}</div>
+          {this.props.data &&
+            <div>Message from Redux Store: {this.props.data.data} {this.props.data.test}</div>
+          }
         </div>
       </div>
     )
