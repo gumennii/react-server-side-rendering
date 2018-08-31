@@ -17,6 +17,12 @@ const DEV = process.env.NODE_ENV === 'development'
 const publicPath = configDevClient.output.publicPath
 const outputPath = configDevClient.output.path
 
+server.get('/json', (req, res) => {
+  res.json({
+    "data": "Misha"
+  })
+})
+
 if (DEV) {
   const compiler = webpack([configDevClient, configDevServer])
   const clientCompiler = compiler.compilers[0]

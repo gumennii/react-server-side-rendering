@@ -1,11 +1,24 @@
-export const testReducer = (state = {}, action) => {
+import {
+  FETCH_SUCCESS,
+  FETCH_FAILURE
+} from './actions'
+
+export const fetchInitialData = (state = {}, action) => {
   switch(action.type) {
-    case 'TEST_ACTION':
+    case FETCH_SUCCESS: {
+      action.payload.test = 'Boom'
       return {
         ...state,
-        text: action.text
+        data: action.payload
       }
-    default:
+    }
+    case FETCH_FAILURE: {
+      return {
+        ...state,
+        error: action.payload
+      }
+    }
+    default: 
       return state
   }
 }

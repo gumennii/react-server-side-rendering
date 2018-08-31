@@ -7,7 +7,9 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
 import App from './components/App'
-import store from './state/store'
+import configureStore from './state/store'
+
+const store = configureStore({})
 
 ReactDOM.hydrate(
   <Provider store={store}>

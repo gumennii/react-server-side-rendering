@@ -7,10 +7,14 @@ import flushChunks from 'webpack-flush-chunks'
 import { Provider } from 'react-redux'
 
 import App from '../components/App'
-import store from '../state/store'
+import configureStore from '../state/store'
+import { fetchInitialData } from '../state/actions'
 
 export default ({ clientStats }) => (req, res) => {
   const context = {}
+
+  const store = configureStore()
+  store.dispatch(fetchInitialData())
 
   const app = renderToString(
     <Provider store={store}>
