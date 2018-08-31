@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet'
 import { connect } from 'react-redux'
 import styled, { css } from 'react-emotion'
 import styles from './styles.css'
-import { fetchInitialData } from '../../state/actions';
+import { fetchUsers } from '../../state/actions'
 
 // Example of dynamic imports
 const getLodash = () => {
@@ -34,13 +34,19 @@ class Sample extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(fetchInitialData('test'))
+    this.props.fetchUsers()
   }
 
   increment() {
     this.setState({
       count: this.state.count + 1
     })
+  }
+
+  renderUsers() {
+    return this.props.users.map(user => (
+      <li key={user.name}>{user.name}</li>
+    ))
   }
 
   render() {
@@ -61,9 +67,9 @@ class Sample extends Component {
             <button onClick={getLodash}>Get Lodash Dynamicaly</button>
           </div>
           <Paragraph color="success">Sample Text</Paragraph>
-          {this.props.data &&
-            <div>Message from Redux Store: {this.props.data.data} {this.props.data.test}</div>
-          }
+          <ul>
+            {this.renderUsers()}
+          </ul>
         </div>
       </div>
     )
@@ -71,5 +77,5 @@ class Sample extends Component {
 }
 
 export default connect(state => ({
-  data: state.data
-}))(Sample)
+  users: state.users
+}), { fetchUsers })(Sample)

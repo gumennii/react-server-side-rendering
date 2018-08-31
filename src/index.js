@@ -7,9 +7,11 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
 import App from './components/App'
-import configureStore from './state/store'
+import configureStore from './state/store/createStore'
 
-const store = configureStore({})
+const initialState = window.__INITIAL_STATE__
+delete window.__INITIAL_STATE__
+const store = configureStore(initialState)
 
 ReactDOM.hydrate(
   <Provider store={store}>

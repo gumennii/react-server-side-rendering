@@ -15,13 +15,6 @@ const server = express()
 
 const DEV = process.env.NODE_ENV === 'development'
 const publicPath = configDevClient.output.publicPath
-const outputPath = configDevClient.output.path
-
-server.get('/json', (req, res) => {
-  res.json({
-    "data": "Misha"
-  })
-})
 
 if (DEV) {
   const compiler = webpack([configDevClient, configDevServer])
@@ -38,9 +31,7 @@ if (DEV) {
 } else {
   webpack([configProdClient, configProdServer]).run((err, stats) => {
     console.log(
-      stats.toString({
-        colors: true
-      })
+      stats.toString({ colors: true })
     )
 
     const clientStats = stats.toJson().children[0]
