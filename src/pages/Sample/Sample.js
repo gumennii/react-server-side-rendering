@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { Helmet } from 'react-helmet'
+import { connect } from 'react-redux'
 import styled, { css } from 'react-emotion'
 import styles from './styles.css'
+import { fetchInitialData } from '../../state/actions';
 
 // Example of dynamic imports
 const getLodash = () => {
@@ -31,6 +33,10 @@ class Sample extends Component {
     }
   }
 
+  componentDidMount() {
+    this.props.dispatch(fetchInitialData('test'))
+  }
+
   increment() {
     this.setState({
       count: this.state.count + 1
@@ -55,10 +61,13 @@ class Sample extends Component {
             <button onClick={getLodash}>Get Lodash Dynamicaly</button>
           </div>
           <Paragraph color="success">Sample Text</Paragraph>
+          <div>Message from Redux Store: {this.props.data.data} {this.props.data.test}</div>
         </div>
       </div>
     )
   }
 }
 
-export default Sample
+export default connect(state => ({
+  data: state.data
+}))(Sample)
