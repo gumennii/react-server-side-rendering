@@ -20,5 +20,3 @@ ReactDOM.hydrate(
     </BrowserRouter>
   </Provider>, document.getElementById('app-root')
 )
-
-console.log('Environemnt is', process.env.NODE_ENV)

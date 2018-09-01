@@ -34,7 +34,11 @@ class Sample extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchUsers()
+    const { users: { isFetched } } = this.props
+
+    if (!isFetched) {
+      this.props.fetchUsers()
+    }
   }
 
   increment() {
@@ -67,9 +71,9 @@ class Sample extends Component {
             <button onClick={getLodash}>Get Lodash Dynamicaly</button>
           </div>
           <Paragraph color="success">Sample Text</Paragraph>
-          <ul>
+          {/* <ul>
             {this.renderUsers()}
-          </ul>
+          </ul> */}
         </div>
       </div>
     )

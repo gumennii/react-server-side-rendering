@@ -1,19 +1,11 @@
 const path = require('path')
 const webpack = require('webpack')
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin')
-const nodeExternals = require('webpack-node-externals')
-
-const externals = require('./node-externals') // Required to skip /node_modules/ folder
 
 module.exports = {
   name: 'server',
   mode: 'production',
   target: 'node',
-  externals: [nodeExternals({
-    whitelist: [
-      /babel-plugin-universal-import|react-universal-component/
-    ]
-  })],
   entry: [
     '@babel/plugin-transform-runtime',
     './src/server/render.js'
