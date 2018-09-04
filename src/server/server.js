@@ -16,6 +16,15 @@ const server = express()
 const DEV = process.env.NODE_ENV === 'development'
 const publicPath = configDevClient.output.publicPath
 
+server.get('/json', (req, res) => {
+  res.json({
+    users: [
+      { name: 'Shalom' },
+      { name: 'Misha' }
+    ]
+  })
+})
+
 if (DEV) {
   const compiler = webpack([configDevClient, configDevServer])
   const clientCompiler = compiler.compilers[0]
@@ -26,7 +35,7 @@ if (DEV) {
   server.use(webpackDevMiddleware(compiler, options))
   server.use(webpackHotMiddleware(clientCompiler))
   server.use(webpackHotServerMiddleware(compiler))
-  console.log('Middleware enabled')
+  console.log(`🛠  Middleware Applied and Enabled`)
 
 } else {
   webpack([configProdClient, configProdServer]).run((err, stats) => {
@@ -38,7 +47,7 @@ if (DEV) {
     const render = require('../../build/prod-server-bundle.js').default
 
     // Letting Express server to serve files from 'dist' folder
-    const staticMiddleware = express.static('dist')
+    // const staticMiddleware = express.static('dist')
     server.use(
       expressStaticGzip('dist', {
         enableBrotli: true
@@ -51,5 +60,5 @@ if (DEV) {
 }
 
 server.listen(3000, () => {
-  console.log('Listening on port 3000')
+  console.log('🚀 Server is Started and Listening on port 3000')
 })

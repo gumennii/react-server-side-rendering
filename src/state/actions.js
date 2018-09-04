@@ -9,35 +9,40 @@ import axios from 'axios'
 //     .catch(err => dispatch(fetchFailure(err)))
 // }
 
-export const FETCH_USERS_REQUEST = 'fetchUsersRequest'
-export const FETCH_USERS_SUCCESS = 'fetchUsersSuccess'
-export const FETCH_USERS_FAILURE = 'fetchUsersFailure'
-export const FETCH_USERS = 'fetchUsers'
+export const FETCH_DATA_REQUEST = 'fetchDataRequest'
+export const FETCH_DATA_SUCCESS = 'fetchDataSuccess'
+export const FETCH_DATA_FAILURE = 'fetchDataFailure'
+export const FETCH_DATA = 'fetchData'
 
-export const fetchUsersRequest = response => ({
-  type: FETCH_USERS_REQUEST
+export const fetchDataRequest = () => ({
+  type: FETCH_DATA_REQUEST
 })
 
-export const fetchUsersSuccess = response => ({
-  type: FETCH_USERS_SUCCESS,
+export const fetchDataSuccess = response => ({
+  type: FETCH_DATA_SUCCESS,
   payload: response
 })
 
-export const fetchUsersFailure = error => ({
-  type: FETCH_FAILURE,
+export const fetchDataFailure = error => ({
+  type: FETCH_DATA_FAILURE,
   payload: error
 })
 
-export const fetchUsers = () => async dispatch => {
-  console.log('fetching users')
+export const fetchData = () => async dispatch => {
   // with a dispatch we can pass some global defined API
-  // dispatch(fetchUsersRequest())
+  dispatch(fetchDataRequest())
 
-  try {
-    const response = await axios.get('http://react-ssr-api.herokuapp.com/users')
-    console.log(response)
-    dispatch(fetchUsersSuccess(response))
-  } catch (err) {
-    dispatch(fetchUsersFailure(err))
-  }
+    return fetch('http://localhost:3000/json')
+      .then(res => res.json())
+      .then(data => dispatch(fetchDataSuccess(data)))
+      .catch(err => dispatch(fetchDataFailure(err)))
+
+  // try {
+  //   const response = await axios.get('/json')
+  //   // const response = await axios.get('http://react-ssr-api.herokuapp.com/users')
+  //   const data = await response.data
+  //   dispatch(fetchDataSuccess(data))
+  // } catch (err) {
+  //   dispatch(fetchDataFailure(err))
+  // }
 }
