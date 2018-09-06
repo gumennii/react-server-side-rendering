@@ -10,6 +10,7 @@
     "dev": "NODE_ENV=development nodemon --watch src/server --watch config src/server/index.js"
   },
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "7.0.0",
     "@babel/runtime": "7.0.0",
     "axios": "0.18.0",
     "babel-loader": "8.0.0",

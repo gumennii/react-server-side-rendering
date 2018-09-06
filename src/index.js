@@ -2,7 +2,7 @@
 import './assets/global.css'
 
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { hydrate } from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
@@ -10,10 +10,9 @@ import App from './components/App'
 import configureStore from './state/store/createStore'
 
 const initialState = window.__INITIAL_STATE__
-delete window.__INITIAL_STATE__
 const store = configureStore(initialState)
 
-ReactDOM.hydrate(
+hydrate(
   <Provider store={store}>
     <BrowserRouter>
       <App />

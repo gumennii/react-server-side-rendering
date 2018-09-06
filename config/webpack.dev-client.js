@@ -66,7 +66,7 @@ module.exports = {
   plugins: [
     new ExtractCssChunks({ hot: true }),
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'development'
+      NODE_ENV: 'development'    
     }),
     new webpack.HotModuleReplacementPlugin()
   ]

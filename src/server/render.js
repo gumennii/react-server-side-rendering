@@ -13,18 +13,34 @@ import App from '../components/App'
 import createStore from '../state/store/createStore'
 
 export default ({ clientStats }) => (req, res) => {
-  const context = {}
-
   const helmet = Helmet.renderStatic()
 
   const store = createStore()
   
-  // Get all matched routes and `getInitialData`
+  // Get all matched routes and `getInitialData` and prevent failing promise resoliving if one of them fails
   const promises = matchRoutes(Routes, req.path).map(({ route }) => {
     return route.getInitialData ? route.getInitialData(store) : null
+  }).map(promise => {
+    if (promise) {
+      return new Promise((resolve) => {
+        promise
+          .then(resolve)
+          .catch(resolve)
+      })
+    }
   })
 
   Promise.all(promises).then(() => {
+    const context = {}
+
+    if (context.url) {
+      return res.redirect(301, context.url);
+    }
+
+    if (context.notFound) {
+      res.status(404)
+    }
+
     const app = renderToString(
       <Provider store={store}>
         <StaticRouter location={req.path} context={context}>
@@ -36,7 +52,7 @@ export default ({ clientStats }) => (req, res) => {
     const { js, styles, cssHash } = flushChunks(clientStats, {
       chunkNames: flushChunkNames()
     })
-  
+
     res.send(`
   <!doctype html>
   <html>
