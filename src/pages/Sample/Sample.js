@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { Helmet } from 'react-helmet'
+import { connect } from 'react-redux'
 import styled, { css } from 'react-emotion'
 import styles from './styles.css'
+import { fetchInitialData } from '../../state/actions'
 
 // Example of dynamic imports
 const getLodash = () => {
@@ -24,10 +26,13 @@ const Paragraph = styled('p')`
 `
 
 class Sample extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      count: 0
+  state = {
+    count: 0
+  }
+
+  componentDidMount() {
+    if (!this.props.users.isFetched) {
+      this.props.fetchInitialData()
     }
   }
 
@@ -35,6 +40,14 @@ class Sample extends Component {
     this.setState({
       count: this.state.count + 1
     })
+  }
+
+  renderUsers() {
+    if (!this.props.users.list) return null
+
+    return this.props.users.list.map(user => (
+      <li key={user.name}>{user.name}</li>
+    ))
   }
 
   render() {
@@ -55,10 +68,15 @@ class Sample extends Component {
             <button onClick={getLodash}>Get Lodash Dynamicaly</button>
           </div>
           <Paragraph color="success">Sample Text</Paragraph>
+          <ul>
+            {this.renderUsers()}
+          </ul>
         </div>
       </div>
     )
   }
 }
 
-export default Sample
+export default connect(state => ({
+  users: state.users
+}), { fetchInitialData })(Sample)

@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin')
+const nodeExternals = require('webpack-node-externals')
 
 const externals = require('./node-externals') // Required to skip /node_modules/ folder
 
@@ -8,7 +9,11 @@ module.exports = {
   name: 'server',
   mode: 'production',
   target: 'node',
-  externals: externals,
+  externals: [nodeExternals({
+    whitelist: [
+      /babel-plugin-universal-import|react-universal-component/
+    ]
+  })],
   entry: [
     '@babel/plugin-transform-runtime',
     './src/server/render.js'
@@ -47,7 +52,8 @@ module.exports = {
       maxChunks: 1
     }),
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'development'
+      NODE_ENV: 'development',
+      __isBrowser__: 'true'
     })
   ]
 }

@@ -15,7 +15,6 @@ const server = express()
 
 const DEV = process.env.NODE_ENV === 'development'
 const publicPath = configDevClient.output.publicPath
-const outputPath = configDevClient.output.path
 
 if (DEV) {
   const compiler = webpack([configDevClient, configDevServer])
@@ -27,14 +26,12 @@ if (DEV) {
   server.use(webpackDevMiddleware(compiler, options))
   server.use(webpackHotMiddleware(clientCompiler))
   server.use(webpackHotServerMiddleware(compiler))
-  console.log('Middleware enabled')
+  console.log('🛠  Applying and Enabling Middleware')
 
 } else {
   webpack([configProdClient, configProdServer]).run((err, stats) => {
     console.log(
-      stats.toString({
-        colors: true
-      })
+      stats.toString({ colors: true })
     )
 
     const clientStats = stats.toJson().children[0]
@@ -54,5 +51,5 @@ if (DEV) {
 }
 
 server.listen(3000, () => {
-  console.log('Listening on prot 3000')
+  console.log('🚀 Starting Server and Listening on prot 3000')
 })
