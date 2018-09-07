@@ -9,27 +9,24 @@ module.exports = {
   name: 'server',
   mode: 'production',
   target: 'node',
-  externals: [nodeExternals({
-    whitelist: [
-      /babel-plugin-universal-import|react-universal-component/
-    ]
-  })],
-  entry: [
-    '@babel/plugin-transform-runtime',
-    './src/server/render.js'
+  externals: [
+    nodeExternals({
+      whitelist: [/babel-plugin-universal-import|react-universal-component/],
+    }),
   ],
+  entry: ['@babel/plugin-transform-runtime', './src/server/render.js'],
   output: {
     filename: 'dev-server-bundle.js',
     path: path.resolve(__dirname, '../build'),
-    libraryTarget: 'commonjs2'
+    libraryTarget: 'commonjs2',
   },
   module: {
     exprContextCritical: false, // Should be removed with next versions of webpack
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(tsx?)|(js)$/,
         exclude: /node_modules/,
-        use: 'babel-loader'
+        use: 'babel-loader',
       },
       {
         test: /\.css$/,
@@ -39,21 +36,21 @@ module.exports = {
             loader: 'css-loader',
             options: {
               modules: true,
-              localIdentName: '[name]__[local]--[hash:base64:5]'
-            }
-          }
-        ]
-      }
-    ]
+              localIdentName: '[name]__[local]--[hash:base64:5]',
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new ExtractCssChunks(),
     new webpack.optimize.LimitChunkCountPlugin({
-      maxChunks: 1
+      maxChunks: 1,
     }),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
-      __isBrowser__: 'true'
-    })
-  ]
+      __isBrowser__: 'true',
+    }),
+  ],
 }

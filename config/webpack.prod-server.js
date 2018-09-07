@@ -7,25 +7,25 @@ module.exports = {
   name: 'server',
   mode: 'production',
   target: 'node',
-  externals: [nodeExternals({
-    whitelist: [
-      /babel-plugin-universal-import|react-universal-component/
-    ]
-  })],
+  externals: [
+    nodeExternals({
+      whitelist: [/babel-plugin-universal-import|react-universal-component/],
+    }),
+  ],
   entry: './src/server/render.js',
   output: {
     filename: 'prod-server-bundle.js',
     path: path.resolve(__dirname, '../build'),
     libraryTarget: 'commonjs2',
-    publicPath: '/'
+    publicPath: '/',
   },
   module: {
     exprContextCritical: false, // Should be removed with next versions of webpack
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(tsx?)|(js)$/,
         exclude: /node_modules/,
-        use: [{ loader: 'babel-loader' }]
+        use: 'babel-loader',
       },
       {
         test: /\.css$/,
@@ -35,20 +35,20 @@ module.exports = {
             loader: 'css-loader',
             options: {
               modules: true,
-              localIdentName: '[name]__[local]--[hash:base64:5]'
-            }
-          }
-        ]
-      }
-    ]
+              localIdentName: '[name]__[local]--[hash:base64:5]',
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new ExtractCssChunks(),
     new webpack.optimize.LimitChunkCountPlugin({
-      maxChunks: 1
+      maxChunks: 1,
     }),
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'production'
-    })
-  ]
+      NODE_ENV: 'production',
+    }),
+  ],
 }

@@ -12,22 +12,22 @@ module.exports = {
     main: [
       '@babel/plugin-transform-runtime',
       'webpack-hot-middleware/client?reload=true',
-      './src/index.js'
-    ]
+      './src/index.js',
+    ],
   },
   output: {
     filename: '[name]-bundle.js',
     chunkFilename: '[name]-bundle.js',
     path: path.resolve(__dirname, '../dist'),
-    publicPath: '/'
+    publicPath: '/',
   },
   devServer: {
     contentBase: 'dist',
-    hot: true
+    hot: true,
   },
   optimization: {
     runtimeChunk: {
-      name: 'bootstrap'
+      name: 'bootstrap',
     },
     splitChunks: {
       chunks: 'initial',
@@ -35,18 +35,18 @@ module.exports = {
       cacheGroups: {
         vendors: {
           name: 'vendor',
-          test: /[\\/]node_modules[\\/]/
-        }
-      }
-    }
+          test: /[\\/]node_modules[\\/]/,
+        },
+      },
+    },
   },
   module: {
     exprContextCritical: false, // Should be removed with next versions of webpack
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(tsx?)|(js)$/,
         exclude: /node_modules/,
-        use: 'babel-loader'
+        use: 'babel-loader',
       },
       {
         test: /\.css$/,
@@ -56,18 +56,21 @@ module.exports = {
             loader: 'css-loader',
             options: {
               modules: true,
-              localIdentName: '[name]__[local]--[hash:base64:5]'
-            }
-          }
-        ]
-      }
-    ]
+              localIdentName: '[name]__[local]--[hash:base64:5]',
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new ExtractCssChunks({ hot: true }),
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'development'    
+      NODE_ENV: 'development',
     }),
-    new webpack.HotModuleReplacementPlugin()
-  ]
+    new webpack.HotModuleReplacementPlugin(),
+  ],
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.json'],
+  },
 }
