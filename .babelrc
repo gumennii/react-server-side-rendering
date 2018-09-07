@@ -9,7 +9,8 @@
         "debug": false
       }
     ],
-    "@babel/preset-react"
+    "@babel/preset-react",
+    "@babel/typescript"
   ],
   "plugins": [
     "@babel/transform-runtime",
