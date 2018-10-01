@@ -1,0 +1,10 @@
+{
+  parser: 'sugarss',
+  plugins: {
+    'postcss-easy-import': {
+      extensions: ['.sss'],
+      path: ['src']
+    },
+    'precss': {},
+  }
+}
