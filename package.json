@@ -7,11 +7,17 @@
   "license": "MIT",
   "scripts": {
     "prod": "NODE_ENV=production node src/server/index.js",
-    "dev": "NODE_ENV=development nodemon --watch src/server --watch config src/server/index.js"
+    "dev": "NODE_ENV=development nodemon --watch src/server --watch config src/server/index.js",
+    "lint": "tslint ./src/**/*.{ts,tsx}",
+    "precommit": "pretty-quick --staged"
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "7.0.0",
+    "@babel/preset-typescript": "7.0.0",
     "@babel/runtime": "7.0.0",
+    "@types/react": "16.4.13",
+    "@types/react-dom": "16.0.7",
+    "@types/react-router-dom": "4.3.0",
     "axios": "0.18.0",
     "babel-loader": "8.0.0",
     "babel-plugin-module-resolver": "3.1.1",
@@ -50,9 +56,12 @@
     "redux-thunk": "2.3.0",
     "style-loader": "0.23.0",
     "sugarss": "2.0.0",
+    "ts-loader": "5.0.0",
+    "tslint": "5.11.0",
     "tslint-config-prettier": "1.15.0",
     "tslint-config-standard": "8.0.1",
     "tslint-react": "3.6.0",
+    "typescript": "3.0.3",
     "webpack": "4.17.1",
     "webpack-cli": "3.1.0",
     "webpack-dev-middleware": "3.2.0",
@@ -68,6 +77,10 @@
     "@babel/plugin-transform-runtime": "7.0.0",
     "@babel/preset-env": "7.0.0",
     "@babel/preset-react": "7.0.0",
-    "@babel/register": "7.0.0"
+    "@babel/register": "7.0.0",
+    "@types/webpack-env": "1.13.6",
+    "husky": "0.14.3",
+    "prettier": "1.14.2",
+    "pretty-quick": "1.6.0"
   }
 }

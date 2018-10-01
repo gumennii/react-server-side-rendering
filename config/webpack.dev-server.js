@@ -24,7 +24,7 @@ module.exports = {
     exprContextCritical: false, // Should be removed with next versions of webpack
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(tsx?)|(js)$/,
         exclude: /node_modules/,
         use: 'babel-loader',
       },

@@ -5,6 +5,9 @@ import styled, { css } from 'react-emotion'
 import styles from './styles.sss'
 import { fetchInitialData } from '../../state/actions'
 
+// Example of Typescript Component
+import HelloTS from '../../index.tsx'
+
 // Example of dynamic imports
 const getLodash = () => {
   import('lodash').then(_ => {
@@ -67,6 +70,7 @@ class Sample extends Component {
           <div>
             <button onClick={getLodash}>Get Lodash Dynamicaly</button>
           </div>
+          <HelloTS />
           <Paragraph color="success">Sample Text</Paragraph>
           <ul>{this.renderUsers()}</ul>
         </div>

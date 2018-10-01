@@ -10,17 +10,17 @@ module.exports = {
   mode: 'production',
   entry: {
     vendor: ['react', 'react-dom'],
-    main: './src/index.js'
+    main: './src/index.js',
   },
   output: {
     filename: '[name]-bundle.js',
     chunkFilename: '[name]-bundle.js',
     path: path.resolve(__dirname, '../dist'),
-    publicPath: '/'
+    publicPath: '/',
   },
   optimization: {
     runtimeChunk: {
-      name: 'bootstrap'
+      name: 'bootstrap',
     },
     splitChunks: {
       chunks: 'initial',
@@ -28,18 +28,18 @@ module.exports = {
       cacheGroups: {
         vendors: {
           name: 'vendor',
-          test: /[\\/]node_modules[\\/]/
-        }
-      }
-    }
+          test: /[\\/]node_modules[\\/]/,
+        },
+      },
+    },
   },
   module: {
     exprContextCritical: false, // Should be removed with next versions of webpack
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(tsx?)|(js)$/,
         exclude: /node_modules/,
-        use: [{ loader: 'babel-loader' }]
+        use: 'babel-loader',
       },
       {
         test: /\.css$/,
@@ -49,22 +49,22 @@ module.exports = {
             loader: 'css-loader',
             options: {
               modules: true,
-              localIdentName: '[name]__[local]--[hash:base64:5]'
-            }
-          }
-        ]
-      }
-    ]
+              localIdentName: '[name]__[local]--[hash:base64:5]',
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new ExtractCssChunks(),
     new OptimizeCssAssetsPlugin(),
     new CompressionPlugin({
-      algorithm: 'gzip'
+      algorithm: 'gzip',
     }),
     new BrotliPlugin(),
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'production'
-    })
-  ]
+      NODE_ENV: 'production',
+    }),
+  ],
 }
